@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  version: "0.1.0"
+  title: Weather service
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths 
+basePath: /api/v1/
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /weathers:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: weather-controller
+    get:
+      description: Returns list of city weathers
+      # used as the method name of the controller
+      operationId: weathers
+      parameters:
+        - name: date
+          in: query
+          description: Filtering date
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/WeathersResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+
+  WeathersResponse:
+      type: array
+      items:
+        $ref: "#/definitions/Weather"
+
+  Weather:
+    required:
+      - date1
+    properties:
+      date1:
+        type: string 
+      temperature1:
+        type: string
+      city1:
+        type: string
+      image1:
+        type: string
+      date2:
+        type: string 
+      temperature2:
+        type: string
+      city2:
+        type: string
+      image2:
+        type: string
+      date3:
+        type: string 
+      temperature3:
+        type: string
+      city3:
+        type: string
+      image3:
+        type: string
+      date4:
+        type: string 
+      temperature4:
+        type: string
+      city4:
+        type: string
+      image4:
+        type: string
+      date5:
+        type: string 
+      temperature5:
+        type: string
+      city5:
+        type: string
+      image5:
+        type: string
+      date6:
+        type: string 
+      temperature6:
+        type: string
+      city6:
+        type: string
+      image6:
+        type: string
+      date7:
+        type: string 
+      temperature7:
+        type: string
+      city7:
+        type: string
+      image7:
+        type: string
+
+
+
+
+
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
